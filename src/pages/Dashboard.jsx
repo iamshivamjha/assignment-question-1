@@ -23,15 +23,15 @@ const Dashboard = () => {
   const [selectedOrderTimeStamps, setSelectedOrderTimeStamps] = useState({});
 
 
-  const handleOrderSelection = (orderId) => {
-    // Find the selected order details from the data
-    const selectedOrder = mockData.results.find((order) => order["&id"] === orderId);
-    setSelectedOrderDetails(selectedOrder);
+  // const handleOrderSelection = (orderId) => {
+  //   // Find the selected order details from the data
+  //   const selectedOrder = mockData.results.find((order) => order["&id"] === orderId);
+  //   setSelectedOrderDetails(selectedOrder);
 
-    // Find the selected order timestamps from the timestamps data
-    const selectedTimestamps = timestamps.results.find((item) => item["&id"] === orderId);
-    setSelectedOrderTimeStamps(selectedTimestamps);
-  };
+  //   // Find the selected order timestamps from the timestamps data
+  //   const selectedTimestamps = timestamps.results.find((item) => item["&id"] === orderId);
+  //   setSelectedOrderTimeStamps(selectedTimestamps);
+  // };
 
   useEffect(() => {
     // Filter the rows based on the search text
@@ -44,7 +44,7 @@ const Dashboard = () => {
   return (
     <div>
       <div className={styles.header}>
-        <HeaderTitle primaryTitle="Orders" secondaryTitle={`${filteredRows.length} orders`}/>
+        <HeaderTitle primaryTitle="Orders"/>
         <div className={styles.actionBox}>
           <Search
             value={searchText}
@@ -68,10 +68,22 @@ const Dashboard = () => {
             title="Selected Order Timestamps"
           />
         </div>
-        <List rows={filteredRows} 
+        <List 
+        rows={filteredRows} 
         selectedCurrency={currency}
         timestamps={timestamps}
-        onOrderSelect={handleOrderSelection}
+        onOrderSelect={(orderId) => {
+
+          console.log('orderId', orderId)
+          const obj = {
+            orderRecieved: orderId.orderSubmitted,
+            orderStatusUpdated: orderId.orderSubmitted,
+            orderSubmitted: orderId.orderSubmitted,
+          }
+          console.log('obj', obj)
+          setSelectedOrderDetails(orderId.executionDetails || {});
+          setSelectedOrderTimeStamps(obj || {});
+        }}
         />
       </div>
     </div>

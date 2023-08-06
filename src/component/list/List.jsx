@@ -6,7 +6,7 @@ import ListHeaderCell from "./ListHeaderCell";
 
 import styles from "./List.module.css";
 
-const List = ({ rows, selectedCurrency, timestamps }) => {
+const List = ({ rows, selectedCurrency, timestamps, onOrderSelect }) => {
   const updatedRows = rows.map((row) => {
     const id = row["&id"];
     const matchingTimestamp = timestamps.results.find((item) => item["&id"] === id);
@@ -26,7 +26,7 @@ const List = ({ rows, selectedCurrency, timestamps }) => {
       </thead>
       <tbody>
         {updatedRows.map((row) => (
-          <ListRow key={row["&id"]}>
+          <ListRow key={row["&id"]} onOrderSelect={() =>onOrderSelect(row)}>
             <ListRowCell>{row["&id"]}</ListRowCell>
             <ListRowCell>{row.executionDetails.buySellIndicator}</ListRowCell>
             <ListRowCell>{row.executionDetails.orderStatus}</ListRowCell>

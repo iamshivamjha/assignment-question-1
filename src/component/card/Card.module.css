@@ -1,6 +1,7 @@
 .container {
   background-color: #043463;
   border-radius: 1em;
+  width: 500px;
   color: white;
 }
 

@@ -23,6 +23,7 @@
 
 .section {
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
+  flex-direction: row;
   gap: 1em;
 }
